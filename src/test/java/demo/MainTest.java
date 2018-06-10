@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -63,7 +64,15 @@ public class MainTest {
     public void testDelete() {
         customerDao.deleteAll();
         List<Customer> customers = (List<Customer>) customerDao.findAll();
-        assertEquals(customers.size(), 0);
+        assertThat(customers).isEmpty();
+    }
+
+    @Test
+    public void testStoreCustomer() {
+        Customer customer = new Customer("Jack", "Smith", "test", 1, 1);
+        customerDao.save(customer);
+        assertThat(customer).hasFieldOrPropertyWithValue("name", "Jack");
+        assertThat(customer).hasFieldOrPropertyWithValue("surname", "Smith");
     }
 
     @Test
@@ -71,10 +80,10 @@ public class MainTest {
     public void testUpdate() {
         Customer customer;
         List<Customer> customers = (List<Customer>) customerDao.findAll();
-        customer = customers.get(count-1);
+        customer = customers.get(count - 1);
         customer.setName("testUpdate");
         customerDao.save(customer);
-        assertEquals(((List<Customer>) customerDao.findAll()).get(count-1).getName(),customer.getName());
+        assertThat(customer).hasFieldOrPropertyWithValue("name", customer.getName());
 
 
     }
