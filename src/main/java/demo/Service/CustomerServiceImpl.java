@@ -163,8 +163,7 @@ public class CustomerServiceImpl implements CustomerService {
                         }
                     }
 
-                    customerDao.update(customer.getID(),customer.getName(),customer.getSurname(),
-                            customer.getOrderDate(), customer.getCost(),customer.getPaid());
+                    customerDao.save(customer);
 
                 } catch (IllegalArgumentException e) {
                     System.out.println("Input error");
