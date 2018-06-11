@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
  */
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {Main.class, AppConfig.class})
+@ContextConfiguration(classes = {Main.class, AppTestConfig.class})
 @Transactional
 public class MainTest {
 
@@ -51,7 +51,7 @@ public class MainTest {
     @Test
     public void testFindAll() {
         Iterable<Customer> customers = customerDao.findAll();
-        customers.forEach(customer -> System.out.println(customer.toString()));
+        assertThat(customers).hasSize(count);
     }
 
     @Test

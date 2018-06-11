@@ -1,6 +1,6 @@
 package demo;
 
-import demo.Application.Application;
+import demo.Service.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,11 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * @author Artur Kuzmik on 18.9.6
  */
-@SpringBootApplication(scanBasePackages = "demo")
+@SpringBootApplication
 public class Main implements CommandLineRunner {
 
     @Autowired
-    private Application application;
+    private ApplicationService applicationService;
 
     public static void main(String[] args) {
         SpringApplication.run(Main.class,args);
@@ -25,6 +25,6 @@ public class Main implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) throws Exception {
-        application.run();
+        applicationService.run();
     }
 }

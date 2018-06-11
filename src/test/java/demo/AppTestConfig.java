@@ -2,8 +2,8 @@ package demo;
 
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -19,14 +19,14 @@ import java.util.Properties;
  * @author Artur Kuzmik on 18.29.5
  */
 
-@Configuration
-@PropertySource(value = {"classpath:app.properties"})
-public class AppConfig {
+@TestConfiguration
+@PropertySource(value = {"classpath:appTest.properties"})
+public class AppTestConfig {
 
     private Environment env;
 
     @Autowired
-    public AppConfig(Environment env) {
+    public AppTestConfig(Environment env) {
         this.env = env;
     }
 
@@ -51,7 +51,7 @@ public class AppConfig {
         jpaProp.setProperty("hibernate.dialect","com.enigmabridge.hibernate.dialect.SQLiteDialect");
         jpaProp.setProperty("hibernate.hbm2ddl.auto","create");
         emFactory.setJpaProperties(jpaProp);
-        emFactory.setPackagesToScan("demo");
+        emFactory.setPackagesToScan(Main.class.getPackage().getName());
 
         return emFactory;
     }

@@ -1,6 +1,5 @@
-package demo.Application;
+package demo.Service;
 
-import demo.Service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +11,7 @@ import java.io.InputStreamReader;
  * @author Artur Kuzmik on 18.9.6
  */
 @Component
-public class ApplicationImpl implements Application {
+public class ApplicationServiceImpl implements ApplicationService {
 
     @Autowired
     public CustomerService customerService;

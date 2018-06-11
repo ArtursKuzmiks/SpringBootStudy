@@ -1,5 +1,6 @@
 package demo.AppConfig;
 
+import demo.Main;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,12 +22,12 @@ import java.util.Properties;
 
 @Configuration
 @PropertySource(value = {"classpath:app.properties"})
-public class AppConfig {
+public class ProductionConfig {
 
     private Environment env;
 
     @Autowired
-    public AppConfig(Environment env) {
+    public ProductionConfig(Environment env) {
         this.env = env;
     }
 
@@ -51,7 +52,7 @@ public class AppConfig {
         jpaProp.setProperty("hibernate.dialect","com.enigmabridge.hibernate.dialect.SQLiteDialect");
         jpaProp.setProperty("hibernate.hbm2ddl.auto","update");
         emFactory.setJpaProperties(jpaProp);
-        emFactory.setPackagesToScan("demo");
+        emFactory.setPackagesToScan(Main.class.getPackage().getName());
 
         return emFactory;
     }
