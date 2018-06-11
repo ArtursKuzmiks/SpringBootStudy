@@ -1,0 +1,3 @@
+# SpringBootTest
+
+Hibernate test too
