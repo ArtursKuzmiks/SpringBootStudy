@@ -1,7 +1,7 @@
 package demo.Service;
 
 import demo.Dao.CustomerDao;
-import demo.Entity.Customer;
+import demo.Entity.CustomerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,14 +23,14 @@ import java.util.Optional;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
-    private Customer customer;
+    private CustomerImpl customer;
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     private CustomerDao customerDao;
 
 
     @Autowired
-    public CustomerServiceImpl(Customer customer, CustomerDao customerDao) {
+    public CustomerServiceImpl(CustomerImpl customer, CustomerDao customerDao) {
         this.customer = customer;
         this.customerDao = customerDao;
     }
@@ -216,15 +216,15 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void allPrice() {
         double amount = 0;
-        amount += findAll().stream().mapToDouble(Customer::getCost).sum();
+        amount += findAll().stream().mapToDouble(CustomerImpl::getCost).sum();
         System.out.printf("Cost of all orders: %.2f\n", amount);
 
     }
 
     @Override
-    public Customer find(long customerId) {
+    public CustomerImpl find(long customerId) {
         try {
-            Optional<Customer> customer = customerDao.findById(customerId);
+            Optional<CustomerImpl> customer = customerDao.findById(customerId);
             return customer.get();
         } catch (NoSuchElementException e) {
             return null;
@@ -232,8 +232,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Customer> findAll() {
-        return (List<Customer>) customerDao.findAll();
+    public List<CustomerImpl> findAll() {
+        return (List<CustomerImpl>) customerDao.findAll();
     }
 
     @Override

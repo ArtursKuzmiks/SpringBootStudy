@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Component
 @Scope("prototype")
 @Table(name = "md_2DB")
-public class Customer implements CustomerObject{
+public class CustomerImpl implements CustomerObject{
 
     private @Id
     @GeneratedValue
@@ -34,10 +34,10 @@ public class Customer implements CustomerObject{
     @Column(name = "paid")
     private double paid;
 
-    public Customer() {
+    public CustomerImpl() {
     }
 
-    public Customer(String name, String surname, String orderDate, double cost, double paid) {
+    public CustomerImpl(String name, String surname, String orderDate, double cost, double paid) {
         this.name = name;
         this.surname = surname;
         this.orderDate = orderDate;

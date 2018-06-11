@@ -1,7 +1,7 @@
 package demo;
 
 import demo.Dao.CustomerDao;
-import demo.Entity.Customer;
+import demo.Entity.CustomerImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,7 +36,7 @@ public class MainTest {
     public void setUp() {
 
         for (int i = 0; i < count; i++) {
-            Customer customer = new Customer();
+            CustomerImpl customer = new CustomerImpl();
             customer.setName("testName" + i);
             customer.setSurname("testSurname" + i);
             customer.setOrderDate("testOrderDate" + i);
@@ -50,26 +50,26 @@ public class MainTest {
 
     @Test
     public void testFindAll() {
-        Iterable<Customer> customers = customerDao.findAll();
+        Iterable<CustomerImpl> customers = customerDao.findAll();
         assertThat(customers).hasSize(count);
     }
 
     @Test
     public void testCount() {
-        List<Customer> customers = (List<Customer>) customerDao.findAll();
+        List<CustomerImpl> customers = (List<CustomerImpl>) customerDao.findAll();
         assertEquals(customers.size(), count);
     }
 
     @Test
     public void testDelete() {
         customerDao.deleteAll();
-        List<Customer> customers = (List<Customer>) customerDao.findAll();
+        List<CustomerImpl> customers = (List<CustomerImpl>) customerDao.findAll();
         assertThat(customers).isEmpty();
     }
 
     @Test
     public void testStoreCustomer() {
-        Customer customer = new Customer("Jack", "Smith", "test", 1, 1);
+        CustomerImpl customer = new CustomerImpl("Jack", "Smith", "test", 1, 1);
         customerDao.save(customer);
         assertThat(customer).hasFieldOrPropertyWithValue("name", "Jack");
         assertThat(customer).hasFieldOrPropertyWithValue("surname", "Smith");
@@ -78,8 +78,8 @@ public class MainTest {
     @Test
     @Transactional
     public void testUpdate() {
-        Customer customer;
-        List<Customer> customers = (List<Customer>) customerDao.findAll();
+        CustomerImpl customer;
+        List<CustomerImpl> customers = (List<CustomerImpl>) customerDao.findAll();
         customer = customers.get(count - 1);
         customer.setName("testUpdate");
         customerDao.save(customer);

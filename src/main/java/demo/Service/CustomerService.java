@@ -1,6 +1,6 @@
 package demo.Service;
 
-import demo.Entity.Customer;
+import demo.Entity.CustomerImpl;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,9 +23,9 @@ public interface CustomerService {
 
     void allPrice();
 
-    Customer find(long customerId);
+    CustomerImpl find(long customerId);
 
-    List<Customer> findAll();
+    List<CustomerImpl> findAll();
 
     void printCustomers();
 }
