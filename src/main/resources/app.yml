@@ -1,0 +1,6 @@
+jdbc:
+  driverClassName: org.sqlite.JDBC
+  url: jdbc:sqlite:src/main/resources/static/customer.db
+  username:
+  password:
+

@@ -7,6 +7,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 /**
@@ -14,6 +15,12 @@ import java.util.List;
  */
 @Repository
 public interface CustomerDao extends PagingAndSortingRepository<CustomerImpl, Long> {
+
+    @PostConstruct
+    default void warmCache(){
+        findAll();
+    }
+
 
 
     @Modifying
