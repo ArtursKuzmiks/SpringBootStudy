@@ -5,7 +5,10 @@ import demo.Entity.CustomerImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Scope;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -42,7 +45,6 @@ public class MainTest {
             customer.setOrderDate("testOrderDate" + i);
             customer.setCost(i);
             customer.setPaid(i);
-            System.out.println(customer.toString());
             customerDao.save(customer);
         }
 
@@ -52,7 +54,6 @@ public class MainTest {
     @Test
     public void testFindAll() {
         Iterable<CustomerImpl> customers = customerDao.findAll();
-        customers.forEach(customer -> System.out.println(customer.toString()));
         assertThat(customers).hasSize(count);
     }
 
@@ -86,8 +87,6 @@ public class MainTest {
         customer.setName("testUpdate");
         customerDao.save(customer);
         assertThat(customer).hasFieldOrPropertyWithValue("name", customer.getName());
-
-
     }
 
 }

@@ -1,5 +1,6 @@
 package demo.Entity;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -13,9 +14,10 @@ import javax.persistence.*;
 @Table(name = "md_2DB")
 public class CustomerImpl implements CustomerObject{
 
-    private @Id
+
+    @Id
     @GeneratedValue
-    Long ID;
+    private Long ID;
 
     @Column(name = "Name")
     private String name;
