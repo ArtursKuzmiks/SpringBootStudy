@@ -1,6 +1,5 @@
 package demo.Entity;
 
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -11,7 +10,6 @@ import javax.persistence.*;
 
 @Entity
 @Component
-@Scope("prototype")
 @Table(name = "md_2DB")
 public class CustomerImpl implements CustomerObject{
 
