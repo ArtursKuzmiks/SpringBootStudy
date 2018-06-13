@@ -4,6 +4,7 @@ package demo.Entity;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @author Artur Kuzmik on 18.29.5
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @Entity
 @Component
 @Table(name = "md_2DB")
-public class CustomerImpl implements CustomerObject{
+public class CustomerImpl implements Serializable {
 
 
     @Id

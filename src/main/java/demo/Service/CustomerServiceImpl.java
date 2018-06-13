@@ -3,7 +3,6 @@ package demo.Service;
 import demo.Dao.CustomerDao;
 import demo.Entity.CustomerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
