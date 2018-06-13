@@ -51,7 +51,7 @@ public class AppTestConfig {
         emFactory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         Properties jpaProp = new Properties();
         jpaProp.setProperty("hibernate.dialect","com.enigmabridge.hibernate.dialect.SQLiteDialect");
-        jpaProp.setProperty("hibernate.hbm2ddl.auto","create");
+        jpaProp.setProperty("hibernate.hbm2ddl.auto","none");
         emFactory.setJpaProperties(jpaProp);
         emFactory.setPackagesToScan(Main.class.getPackage().getName());
 

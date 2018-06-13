@@ -44,6 +44,7 @@ public class MainTest {
             customer.setOrderDate("testOrderDate" + i);
             customer.setCost(i);
             customer.setPaid(i);
+            System.out.println(customer.toString());
             customerDao.save(customer);
         }
 
@@ -53,6 +54,7 @@ public class MainTest {
     @Test
     public void testFindAll() {
         Iterable<CustomerImpl> customers = customerDao.findAll();
+        customers.forEach(customer -> System.out.println(customer.toString()));
         assertThat(customers).hasSize(count);
     }
 

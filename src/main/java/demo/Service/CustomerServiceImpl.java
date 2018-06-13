@@ -3,6 +3,7 @@ package demo.Service;
 import demo.Dao.CustomerDao;
 import demo.Entity.CustomerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -23,22 +24,20 @@ import java.util.Optional;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
-    private CustomerImpl customer;
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     private CustomerDao customerDao;
 
 
     @Autowired
-    public CustomerServiceImpl(CustomerImpl customer, CustomerDao customerDao) {
-        this.customer = customer;
+    public CustomerServiceImpl(CustomerDao customerDao) {
         this.customerDao = customerDao;
     }
 
     @Override
     public void addCustomer() throws IOException {
-
         Date data = null;
+        CustomerImpl customer = new CustomerImpl();
         SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
 
         try {
@@ -94,7 +93,7 @@ public class CustomerServiceImpl implements CustomerService {
         try {
             System.out.print("Input Customer ID: ");
 
-            customer = find(Long.parseLong(reader.readLine()));
+            CustomerImpl customer = find(Long.parseLong(reader.readLine()));
 
 
 

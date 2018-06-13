@@ -1,5 +1,6 @@
 package demo.Entity;
 
+
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -15,7 +16,7 @@ public class CustomerImpl implements CustomerObject{
 
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
 
     @Column(name = "Name")
