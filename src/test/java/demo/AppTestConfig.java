@@ -52,6 +52,10 @@ public class AppTestConfig {
         Properties jpaProp = new Properties();
         jpaProp.setProperty("hibernate.dialect","com.enigmabridge.hibernate.dialect.SQLiteDialect");
         jpaProp.setProperty("hibernate.hbm2ddl.auto","none");
+        jpaProp.setProperty("hibernate.order_inserts","true");
+        jpaProp.setProperty("hibernate.order_update","true");
+        jpaProp.setProperty("hibernate.jdbc.batch_size","50");
+        jpaProp.setProperty("hibernate.jdbc.fetch_size","50");
         emFactory.setJpaProperties(jpaProp);
         emFactory.setPackagesToScan(Main.class.getPackage().getName());
 
@@ -65,6 +69,4 @@ public class AppTestConfig {
 
         return transactionManager;
     }
-
-
 }

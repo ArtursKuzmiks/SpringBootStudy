@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -23,9 +24,10 @@ import static org.junit.Assert.assertEquals;
  */
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {Main.class, AppTestConfig.class})
+@ContextConfiguration(classes = {AppTestConfig.class})
 @TestPropertySource(locations = "classpath:applicationTEST.properties")
 @ActiveProfiles("test")
+@EnableJpaRepositories
 @Transactional
 public class MainTest {
 

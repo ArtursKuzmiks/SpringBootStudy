@@ -1,6 +1,7 @@
 package demo.Entity;
 
 
+import org.hibernate.annotations.BatchSize;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import java.io.Serializable;
 
 @Entity
 @Component
+@BatchSize(size = 5)
 @Table(name = "md_2DB")
 public class CustomerImpl implements Serializable {
 
