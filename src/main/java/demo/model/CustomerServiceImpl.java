@@ -1,8 +1,10 @@
-package demo.Service;
+package demo.model;
 
-import demo.Dao.CustomerDao;
-import demo.Entity.CustomerImpl;
+import demo.controller.Dao.CounterDao;
+import demo.controller.Dao.CustomerDao;
+import demo.controller.Entity.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -26,17 +28,19 @@ public class CustomerServiceImpl implements CustomerService {
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     private CustomerDao customerDao;
+    private CounterDao counterDao;
 
 
     @Autowired
-    public CustomerServiceImpl(CustomerDao customerDao) {
+    public CustomerServiceImpl(CustomerDao customerDao, CounterDao counterDao) {
         this.customerDao = customerDao;
+        this.counterDao = counterDao;
     }
 
     @Override
     public void addCustomer() throws IOException {
         Date data = null;
-        CustomerImpl customer = new CustomerImpl();
+        Customer customer = new Customer();
         SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
 
         try {
@@ -76,6 +80,8 @@ public class CustomerServiceImpl implements CustomerService {
             System.out.print("Paid: ");
             customer.setPaid(Float.parseFloat(reader.readLine()));
 
+            customer.setId(counterDao.getNextSequence("customers"));
+
             customerDao.save(customer);
 
 
@@ -92,8 +98,7 @@ public class CustomerServiceImpl implements CustomerService {
         try {
             System.out.print("Input Customer ID: ");
 
-            CustomerImpl customer = find(Long.parseLong(reader.readLine()));
-
+            Customer customer = find(Long.parseLong(reader.readLine()));
 
 
             if (customer != null) {
@@ -150,7 +155,7 @@ public class CustomerServiceImpl implements CustomerService {
                                 float paid = Float.parseFloat(reader.readLine());
 
                                 if (paid > customer.getCost())
-                                    System.out.println("Paid > cost, error");
+                                    System.out.println("Paid greater then cost, error");
                                 else
                                     customer.setPaid(paid);
                                 break;
@@ -198,7 +203,9 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void sortDateSurname() {
         tableTitle();
-        customerDao.sortDateSurname().forEach(customer -> System.out.println(customer.toString()));
+        customerDao.findAll(new Sort(Sort.Direction.ASC, "orderDate")
+                .and(new Sort(Sort.Direction.ASC, "surname")))
+                .forEach(customer -> System.out.println(customer.toString()));
 
         System.out.println();
 
@@ -207,22 +214,24 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void debtors() {
         tableTitle();
-        customerDao.debtors().forEach(customer -> System.out.println(customer.toString()));
+        customerDao.findAll().stream()
+                .filter(customer -> customer.getPaid() < customer.getCost())
+                .forEach(customer -> System.out.println(customer.toString()));
         System.out.println();
     }
 
     @Override
     public void allPrice() {
         double amount = 0;
-        amount += findAll().stream().mapToDouble(CustomerImpl::getCost).sum();
+        amount += findAll().stream().mapToDouble(Customer::getCost).sum();
         System.out.printf("Cost of all orders: %.2f\n", amount);
 
     }
 
     @Override
-    public CustomerImpl find(long customerId) {
+    public Customer find(long customerId) {
         try {
-            Optional<CustomerImpl> customer = customerDao.findById(customerId);
+            Optional<Customer> customer = customerDao.findById(customerId);
             return customer.get();
         } catch (NoSuchElementException e) {
             return null;
@@ -230,8 +239,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<CustomerImpl> findAll() {
-        return (List<CustomerImpl>) customerDao.findAll();
+    public List<Customer> findAll() {
+        return customerDao.findAll();
     }
 
     @Override

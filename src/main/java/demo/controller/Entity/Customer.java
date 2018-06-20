@@ -1,8 +1,6 @@
-package demo.Entity;
+package demo.controller.Entity;
 
-
-import org.hibernate.annotations.BatchSize;
-import org.springframework.stereotype.Component;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,36 +9,26 @@ import java.io.Serializable;
  * @author Artur Kuzmik on 18.29.5
  */
 
-@Entity
-@Component
-@BatchSize(size = 5)
-@Table(name = "md_2DB")
-public class CustomerImpl implements Serializable {
+@Document(collection = "customers")
+public class Customer implements Serializable {
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ID;
+    @Id private Long id;
 
-    @Column(name = "Name")
     private String name;
 
-    @Column(name = "Surname")
     private String surname;
 
-    @Column(name = "orderDate")
     private String orderDate;
 
-    @Column(name = "cost")
     private double cost;
 
-    @Column(name = "paid")
     private double paid;
 
-    public CustomerImpl() {
+    public Customer() {
     }
 
-    public CustomerImpl(String name, String surname, String orderDate, double cost, double paid) {
+    public Customer(String name, String surname, String orderDate, double cost, double paid) {
         this.name = name;
         this.surname = surname;
         this.orderDate = orderDate;
@@ -49,13 +37,12 @@ public class CustomerImpl implements Serializable {
 
     }
 
-
-    public Long getID() {
-        return ID;
+    public Long getId() {
+        return id;
     }
 
-    public void setID(Long ID) {
-        this.ID = ID;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -101,6 +88,6 @@ public class CustomerImpl implements Serializable {
     @Override
     public String toString() {
         return String.format("%-5s\t%-15s\t%-15s\t%-15s\t%.2f\t%.2f",
-                ID, name, surname, orderDate, cost, paid);
+                id, name, surname, orderDate, cost, paid);
     }
 }

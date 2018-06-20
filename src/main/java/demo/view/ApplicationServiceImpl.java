@@ -1,5 +1,6 @@
-package demo.Service;
+package demo.view;
 
+import demo.model.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

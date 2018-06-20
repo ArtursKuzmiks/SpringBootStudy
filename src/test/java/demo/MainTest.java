@@ -1,18 +1,17 @@
 package demo;
 
-import demo.Dao.CustomerDao;
-import demo.Entity.CustomerImpl;
+import demo.controller.Dao.CounterDao;
+import demo.controller.Dao.CustomerDao;
+import demo.controller.Entity.Customer;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,14 +24,15 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {AppTestConfig.class})
-@TestPropertySource(locations = "classpath:applicationTEST.properties")
 @ActiveProfiles("test")
-@EnableJpaRepositories
-@Transactional
+@EnableMongoRepositories
 public class MainTest {
 
     @Autowired
     private CustomerDao customerDao;
+
+    @Autowired
+    private CounterDao counterDao;
 
 
     private int count = 5;
@@ -43,12 +43,13 @@ public class MainTest {
     public void setUp() {
 
         for (int i = 0; i < count; i++) {
-            CustomerImpl customer = new CustomerImpl();
+            Customer customer = new Customer();
             customer.setName("testName" + i);
             customer.setSurname("testSurname" + i);
             customer.setOrderDate("testOrderDate" + i);
             customer.setCost(i);
             customer.setPaid(i);
+            customer.setId(counterDao.getNextSequence("customers"));
             customerDao.save(customer);
         }
 
@@ -57,40 +58,43 @@ public class MainTest {
 
     @Test
     public void testFindAll() {
-        Iterable<CustomerImpl> customers = customerDao.findAll();
+        Iterable<Customer> customers = customerDao.findAll();
         assertThat(customers).hasSize(count);
+        customerDao.deleteAll();
     }
 
     @Test
     public void testCount() {
-        List<CustomerImpl> customers = (List<CustomerImpl>) customerDao.findAll();
+        List<Customer> customers =  customerDao.findAll();
         assertEquals(customers.size(), count);
     }
 
     @Test
     public void testDelete() {
         customerDao.deleteAll();
-        List<CustomerImpl> customers = (List<CustomerImpl>) customerDao.findAll();
+        List<Customer> customers = customerDao.findAll();
         assertThat(customers).isEmpty();
     }
 
     @Test
     public void testStoreCustomer() {
-        CustomerImpl customer = new CustomerImpl("Jack", "Smith", "test", 1, 1);
+        Customer customer = new Customer("Jack", "Smith", "test", 1, 1);
+        customer.setId(counterDao.getNextSequence("customers"));
+
         customerDao.save(customer);
         assertThat(customer).hasFieldOrPropertyWithValue("name", "Jack");
         assertThat(customer).hasFieldOrPropertyWithValue("surname", "Smith");
     }
 
     @Test
-    @Transactional
     public void testUpdate() {
-        CustomerImpl customer;
-        List<CustomerImpl> customers = (List<CustomerImpl>) customerDao.findAll();
+        Customer customer;
+        List<Customer> customers = customerDao.findAll();
         customer = customers.get(count - 1);
         customer.setName("testUpdate");
         customerDao.save(customer);
         assertThat(customer).hasFieldOrPropertyWithValue("name", customer.getName());
+        customerDao.deleteAll();
     }
 
 }
