@@ -11,4 +11,6 @@ public interface Alerts {
     void addDataErrorAlert();
 
     void deleteErrorAlert();
+
+    void sortInfoAlert();
 }

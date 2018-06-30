@@ -36,4 +36,13 @@ public class AlertsImpl implements Alerts {
         alert.setContentText("There is no Customer with such id.");
         alert.showAndWait();
     }
+
+    @Override
+    public void sortInfoAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText(null);
+        alert.setContentText("No sorting option selected.");
+        alert.showAndWait();
+    }
 }

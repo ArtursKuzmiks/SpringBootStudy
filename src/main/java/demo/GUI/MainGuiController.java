@@ -98,6 +98,12 @@ public class MainGuiController implements Initializable {
     private DatePicker datePicker;
 
     @FXML
+    private CheckBox orderDateIdentity;
+
+    @FXML
+    private CheckBox surnameIdentity;
+
+    @FXML
     private void closeButtonAction() {
         Platform.exit();
     }
@@ -137,8 +143,19 @@ public class MainGuiController implements Initializable {
 
     @FXML
     private void sortButtonAction() {
-        data.sort(Comparator.comparing(Customer::getOrderDate)
-                .thenComparing(Customer::getSurname));
+        if (surnameIdentity.isSelected() && orderDateIdentity.isSelected()) {
+            data.sort(Comparator.comparing(Customer::getOrderDate)
+                    .thenComparing(Customer::getSurname));
+        } else {
+            if (orderDateIdentity.isSelected())
+                data.sort(Comparator.comparing(Customer::getOrderDate));
+            else {
+                if (surnameIdentity.isSelected())
+                    data.sort(Comparator.comparing(Customer::getSurname));
+                else
+                    alerts.sortInfoAlert();
+            }
+        }
     }
 
     @FXML
