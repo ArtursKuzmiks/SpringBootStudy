@@ -7,8 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.mapping.TextScore;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -39,7 +39,6 @@ public class MainTest {
 
 
     @Before
-    @Rollback(false)
     public void setUp() {
 
         for (int i = 0; i < count; i++) {
@@ -94,6 +93,7 @@ public class MainTest {
         customer.setName("testUpdate");
         customerDao.save(customer);
         assertThat(customer).hasFieldOrPropertyWithValue("name", customer.getName());
+        assertThat(customers).hasSize(count);
         customerDao.deleteAll();
     }
 

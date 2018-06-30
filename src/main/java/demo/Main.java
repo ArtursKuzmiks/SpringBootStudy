@@ -1,30 +1,35 @@
 package demo;
 
-import demo.view.ApplicationService;
+import demo.controller.AppConfig.AbstractAppController;
+import demo.controller.AppConfig.ConfigController;
+import javafx.application.Platform;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.transaction.annotation.Transactional;
-
 
 /**
  * @author Artur Kuzmik on 18.9.6
  */
+
 @SpringBootApplication
-public class Main implements CommandLineRunner {
+public class Main extends AbstractAppController {
 
     @Autowired
-    private ApplicationService applicationService;
-
-    public static void main(String[] args) {
-        SpringApplication.run(Main.class,args);
-    }
-
+    @Qualifier("mainView")
+    private ConfigController.ViewHolder viewHolder;
 
     @Override
-    @Transactional
-    public void run(String... args) throws Exception {
-        applicationService.run();
+    public void start(Stage primaryStage) {
+        primaryStage.setScene(new Scene(viewHolder.getView()));
+        primaryStage.setResizable(true);
+        primaryStage.centerOnScreen();
+        primaryStage.setOnCloseRequest(event -> Platform.exit());
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launchApp(Main.class,args);
     }
 }

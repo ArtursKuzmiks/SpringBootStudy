@@ -1,6 +1,7 @@
 package demo.controller.Entity;
 
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,7 +9,7 @@ import java.io.Serializable;
 /**
  * @author Artur Kuzmik on 18.29.5
  */
-
+@Entity
 @Document(collection = "customers")
 public class Customer implements Serializable {
 
