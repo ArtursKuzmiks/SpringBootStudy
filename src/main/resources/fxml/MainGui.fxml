@@ -1,213 +1,198 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" fx:id="mainPane" focusTraversable="true" maxHeight="1.7976931348623157E308"
-            maxWidth="1.7976931348623157E308" prefHeight="700.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/8"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="demo.GUI.MainGuiController">
-    <BorderPane fx:id="borderPane" prefHeight="700.0" prefWidth="950.0">
-        <top>
-            <MenuBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
-                <Menu mnemonicParsing="false" text="File">
-                    <MenuItem mnemonicParsing="false" onAction="#closeButtonAction" text="Close"/>
-                </Menu>
-            </MenuBar>
-        </top>
-        <center>
-            <TableView fx:id="table" editable="true" maxHeight="1.7976931348623157E308"
-                       maxWidth="1.7976931348623157E308" prefHeight="381.0" prefWidth="519.0"
-                       BorderPane.alignment="CENTER">
-                <columns>
-                    <TableColumn id="idColumn" editable="false" minWidth="95.0" prefWidth="-1.0" sortable="false"
-                                 text="ID"/>
-                    <TableColumn editable="false" minWidth="150.0" prefWidth="-1.0" sortable="false" text="Name"/>
-                    <TableColumn editable="false" minWidth="150.0" prefWidth="-1.0" sortable="false" text="Surname"/>
-                    <TableColumn editable="false" minWidth="250.0" prefWidth="-1.0" sortable="false" text="Order date"/>
-                    <TableColumn editable="false" minWidth="150.0" prefWidth="-1.0" sortable="false" text="Cost"/>
-                    <TableColumn editable="false" minWidth="150.0" prefWidth="-1.0" sortable="false" text="Paid"/>
-                </columns>
-            </TableView>
-        </center>
-        <bottom>
-            <TabPane fx:id="tabPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                     prefHeight="200.0" prefWidth="519.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-                <Tab id="add" text="Add">
-                    <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                                minHeight="0.0" minWidth="0.0" prefHeight="148.0" prefWidth="200.0">
-                        <TextField fx:id="nameField" layoutX="14.0" layoutY="14.0"
-                                   maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                                   prefHeight="30.0" prefWidth="140.0" promptText="Name">
-                            <font>
-                                <Font size="15.0"/>
-                            </font>
-                        </TextField>
-                        <TextField fx:id="surnameField" layoutX="169.0" layoutY="14.0"
-                                   maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                                   prefHeight="30.0" prefWidth="140.0" promptText="Surname">
-                            <font>
-                                <Font size="15.0"/>
-                            </font>
-                        </TextField>
-                        <TextField fx:id="costField" layoutX="14.0" layoutY="106.0"
-                                   maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                                   prefHeight="30.0" prefWidth="140.0" promptText="Cost">
-                            <font>
-                                <Font size="15.0"/>
-                            </font>
-                        </TextField>
-                        <TextField fx:id="paidField" layoutX="169.0" layoutY="106.0"
-                                   maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                                   prefHeight="30.0" prefWidth="140.0" promptText="Paid">
-                            <font>
-                                <Font size="15.0"/>
-                            </font>
-                        </TextField>
-                        <Button layoutX="343.0" layoutY="14.0" maxHeight="1.7976931348623157E308"
-                                maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                                onAction="#addButtonAction" prefHeight="30.0" prefWidth="140.0" text="ADD">
-                            <font>
-                                <Font size="15.0"/>
-                            </font>
-                        </Button>
-                        <DatePicker fx:id="datePicker" layoutX="14.0" layoutY="55.0"
-                                    maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                                    prefHeight="30.0" prefWidth="296.0" promptText="yyyy-MM-dd"/>
-                    </AnchorPane>
-                </Tab>
-                <Tab id="delete" text="Delete">
-                    <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                                minHeight="0.0" minWidth="0.0" prefHeight="148.0" prefWidth="200.0">
-                        <Button layoutX="223.0" layoutY="28.0" mnemonicParsing="false"
-                                onAction="#deleteButtonAction" prefHeight="30.0" prefWidth="140.0"
-                                text="DELETE">
-                            <font>
-                                <Font size="15.0"/>
-                            </font>
-                        </Button>
-                        <TextField fx:id="deleteField" layoutX="52.0" layoutY="28.0" prefHeight="30.0"
-                                   prefWidth="140.0" promptText="ID">
-                            <font>
-                                <Font size="15.0"/>
-                            </font>
-                        </TextField>
-                    </AnchorPane>
-                </Tab>
-                <Tab id="edit" text="Edit">
-                    <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                                minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                        <Button layoutX="223.0" layoutY="28.0" mnemonicParsing="false"
-                                onAction="#editButtonAction" prefHeight="30.0" prefWidth="140.0"
-                                text="Search">
-                            <font>
-                                <Font size="15.0"/>
-                            </font>
-                        </Button>
-                        <TextField fx:id="editSearchField" layoutX="52.0" layoutY="28.0" prefHeight="30.0"
-                                   prefWidth="140.0" promptText="ID"/>
-                        <Button fx:id="editButton" layoutX="790.0" layoutY="123.0" mnemonicParsing="false"
-                                onAction="#addButtonAction" prefHeight="30.0" prefWidth="140.0" text="SAVE">
-                            <font>
-                                <Font size="15.0"/>
-                            </font>
-                        </Button>
-                        <TextField fx:id="editPaidField" layoutX="790.0" layoutY="84.0" prefHeight="30.0"
-                                   prefWidth="140.0" promptText="Paid">
-                            <font>
-                                <Font size="15.0"/>
-                            </font>
-                        </TextField>
-                        <TextField fx:id="editCostField" layoutX="602.0" layoutY="84.0" prefHeight="30.0"
-                                   prefWidth="140.0" promptText="Cost">
-                            <font>
-                                <Font size="15.0"/>
-                            </font>
-                        </TextField>
-                        <TextField fx:id="editSurnameField" layoutX="229.0" layoutY="84.0" prefHeight="30.0"
-                                   prefWidth="140.0" promptText="Surname">
-                            <font>
-                                <Font size="15.0"/>
-                            </font>
-                        </TextField>
-                        <TextField fx:id="editNameField" layoutX="52.0" layoutY="84.0" prefHeight="30.0"
-                                   prefWidth="140.0" promptText="Name">
-                            <font>
-                                <Font size="15.0"/>
-                            </font>
-                        </TextField>
-                        <DatePicker fx:id="editDatePicker" layoutX="398.0" layoutY="84.0" prefHeight="30.0"
-                                    prefWidth="191.0"/>
-                    </AnchorPane>
-                </Tab>
-                <Tab id="sort" text="Sort">
-                    <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                                minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                        <CheckBox fx:id="orderDateIdentity" layoutX="40.0" layoutY="14.0"
-                                  mnemonicParsing="false" prefHeight="30.0" prefWidth="140.0"
-                                  text="by Order date">
-                            <font>
-                                <Font size="15.0"/>
-                            </font>
-                        </CheckBox>
-                        <CheckBox fx:id="surnameIdentity" layoutX="40.0" layoutY="69.0"
-                                  mnemonicParsing="false" prefHeight="30.0" prefWidth="140.0"
-                                  text="by Surname">
-                            <font>
-                                <Font size="15.0"/>
-                            </font>
-                        </CheckBox>
-                        <Button layoutX="264.0" layoutY="14.0" mnemonicParsing="false"
-                                onAction="#sortButtonAction" prefHeight="30.0" prefWidth="140.0"
-                                text="Sort">
-                            <font>
-                                <Font size="15.0"/>
-                            </font>
-                        </Button>
-                    </AnchorPane>
-                </Tab>
-                <Tab id="debtors" fx:id="debtorsTab" text="Debtors">
-                    <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                                minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                        <Button layoutX="196.0" layoutY="37.0" mnemonicParsing="false"
-                                onAction="#debtorsButtonAction" prefHeight="30.0" prefWidth="140.0"
-                                text="Show">
-                            <font>
-                                <Font size="15.0"/>
-                            </font>
-                        </Button>
-                        <Label layoutX="23.0" layoutY="43.0" text="Show debtors table:">
-                            <font>
-                                <Font size="15.0"/>
-                            </font>
-                        </Label>
-                    </AnchorPane>
-                </Tab>
-                <Tab id="allOrderCost" text="All orders cost">
-                    <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                                minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                        <Button layoutX="198.0" layoutY="41.0" mnemonicParsing="false"
-                                onAction="#allPriceButtonAction" prefHeight="30.0" prefWidth="140.0"
-                                text="All Price">
-                            <font>
-                                <Font size="15.0"/>
-                            </font>
-                        </Button>
-                        <TextField fx:id="allPriceField" editable="false" layoutX="26.0" layoutY="41.0"
-                                   maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                                   prefHeight="30.0" prefWidth="150.0">
-                            <font>
-                                <Font size="15.0"/>
-                            </font>
-                        </TextField>
-                        <Label layoutX="26.0" layoutY="14.0" text="All orders cost:">
-                            <font>
-                                <Font size="19.0"/>
-                            </font>
-                        </Label>
-                    </AnchorPane>
-                </Tab>
-            </TabPane>
-        </bottom>
-    </BorderPane>
+<AnchorPane id="AnchorPane" fx:id="mainPane" focusTraversable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="demo.GUI.MainGuiController">
+   <children>
+       <BorderPane fx:id="borderPane" prefHeight="700.0" prefWidth="950.0">
+           <top>
+               <MenuBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
+                  <menus>
+                      <Menu mnemonicParsing="false" text="File">
+                         <items>
+                             <MenuItem mnemonicParsing="false" onAction="#closeButtonAction" text="Close" />
+                         </items>
+                      </Menu>
+                  </menus>
+               </MenuBar>
+           </top>
+           <center>
+               <TableView fx:id="table" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="381.0" prefWidth="519.0" BorderPane.alignment="CENTER">
+                   <columns>
+                       <TableColumn id="idColumn" editable="false" minWidth="95.0" prefWidth="-1.0" sortable="false" text="ID" />
+                       <TableColumn editable="false" minWidth="150.0" prefWidth="-1.0" sortable="false" text="Name" />
+                       <TableColumn editable="false" minWidth="150.0" prefWidth="-1.0" sortable="false" text="Surname" />
+                       <TableColumn editable="false" minWidth="250.0" prefWidth="-1.0" sortable="false" text="Order date" />
+                       <TableColumn editable="false" minWidth="150.0" prefWidth="-1.0" sortable="false" text="Cost" />
+                       <TableColumn editable="false" minWidth="150.0" prefWidth="-1.0" sortable="false" text="Paid" />
+                   </columns>
+               </TableView>
+           </center>
+           <bottom>
+               <TabPane fx:id="tabPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="519.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+                  <tabs>
+                      <Tab id="add" text="Add">
+                         <content>
+                             <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="148.0" prefWidth="200.0">
+                                <children>
+                                    <TextField fx:id="nameField" layoutX="14.0" layoutY="14.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="140.0" promptText="Name">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </TextField>
+                                    <TextField fx:id="surnameField" layoutX="169.0" layoutY="14.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="140.0" promptText="Surname">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </TextField>
+                                    <TextField fx:id="costField" layoutX="14.0" layoutY="106.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="140.0" promptText="Cost">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </TextField>
+                                    <TextField fx:id="paidField" layoutX="169.0" layoutY="106.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="140.0" promptText="Paid">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </TextField>
+                                    <Button fx:id="addButton" layoutX="343.0" layoutY="14.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addButtonAction" prefHeight="30.0" prefWidth="140.0" text="ADD">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </Button>
+                                    <DatePicker fx:id="datePicker" layoutX="14.0" layoutY="55.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="296.0" promptText="yyyy-MM-dd" />
+                                </children>
+                             </AnchorPane>
+                         </content>
+                      </Tab>
+                      <Tab id="delete" text="Delete">
+                         <content>
+                             <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="148.0" prefWidth="200.0">
+                                <children>
+                                    <Button fx:id="deleteButton" layoutX="223.0" layoutY="28.0" mnemonicParsing="false" onAction="#deleteButtonAction" prefHeight="30.0" prefWidth="140.0" text="DELETE">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </Button>
+                                    <TextField fx:id="deleteField" layoutX="52.0" layoutY="28.0" prefHeight="30.0" prefWidth="140.0" promptText="ID">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </TextField>
+                                </children>
+                             </AnchorPane>
+                         </content>
+                      </Tab>
+                      <Tab id="edit" text="Edit">
+                         <content>
+                             <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                <children>
+                                    <Button fx:id="searchButton" layoutX="223.0" layoutY="28.0" mnemonicParsing="false" onAction="#editButtonAction" prefHeight="30.0" prefWidth="140.0" text="Search">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </Button>
+                                    <TextField fx:id="editSearchField" layoutX="52.0" layoutY="28.0" prefHeight="30.0" prefWidth="140.0" promptText="ID" />
+                                    <Button fx:id="editButton" layoutX="790.0" layoutY="123.0" mnemonicParsing="false" onAction="#addButtonAction" prefHeight="30.0" prefWidth="140.0" text="SAVE" visible="false">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </Button>
+                                    <TextField fx:id="editPaidField" layoutX="790.0" layoutY="84.0" prefHeight="30.0" prefWidth="140.0" promptText="Paid" visible="false">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </TextField>
+                                    <TextField fx:id="editCostField" layoutX="602.0" layoutY="84.0" prefHeight="30.0" prefWidth="140.0" promptText="Cost" visible="false">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </TextField>
+                                    <TextField fx:id="editSurnameField" layoutX="229.0" layoutY="84.0" prefHeight="30.0" prefWidth="140.0" promptText="Surname" visible="false">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </TextField>
+                                    <TextField fx:id="editNameField" layoutX="52.0" layoutY="84.0" prefHeight="30.0" prefWidth="140.0" promptText="Name" visible="false">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </TextField>
+                                    <DatePicker fx:id="editDatePicker" layoutX="398.0" layoutY="84.0" prefHeight="30.0" prefWidth="191.0" promptText="yyyy-MM-dd" visible="false" />
+                                </children>
+                             </AnchorPane>
+                         </content>
+                      </Tab>
+                      <Tab id="sort" text="Sort">
+                         <content>
+                             <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                <children>
+                                    <CheckBox fx:id="orderDateIdentity" layoutX="40.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="140.0" text="by Order date">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </CheckBox>
+                                    <CheckBox fx:id="surnameIdentity" layoutX="40.0" layoutY="69.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="140.0" text="by Surname">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </CheckBox>
+                                    <Button fx:id="sortButton" layoutX="264.0" layoutY="14.0" mnemonicParsing="false" onAction="#sortButtonAction" prefHeight="30.0" prefWidth="140.0" text="Sort">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </Button>
+                                </children>
+                             </AnchorPane>
+                         </content>
+                      </Tab>
+                      <Tab id="debtors" fx:id="debtorsTab" text="Debtors">
+                         <content>
+                             <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                <children>
+                                    <Button fx:id="showButton" layoutX="196.0" layoutY="37.0" mnemonicParsing="false" onAction="#debtorsButtonAction" prefHeight="30.0" prefWidth="140.0" text="Show">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </Button>
+                                    <Label layoutX="23.0" layoutY="43.0" text="Show debtors table:">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </Label>
+                                </children>
+                             </AnchorPane>
+                         </content>
+                      </Tab>
+                      <Tab id="allOrderCost" text="All orders cost">
+                         <content>
+                             <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                <children>
+                                    <Button fx:id="allPriceButton" layoutX="198.0" layoutY="41.0" mnemonicParsing="false" onAction="#allPriceButtonAction" prefHeight="30.0" prefWidth="140.0" text="All Price">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </Button>
+                                    <TextField fx:id="allPriceField" editable="false" layoutX="26.0" layoutY="41.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="150.0">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </TextField>
+                                    <Label layoutX="26.0" layoutY="14.0" text="All orders cost:">
+                                        <font>
+                                            <Font size="19.0" />
+                                        </font>
+                                    </Label>
+                                </children>
+                             </AnchorPane>
+                         </content>
+                      </Tab>
+                  </tabs>
+               </TabPane>
+           </bottom>
+       </BorderPane>
+   </children>
 </AnchorPane>

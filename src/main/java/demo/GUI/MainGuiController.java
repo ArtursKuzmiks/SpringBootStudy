@@ -104,6 +104,24 @@ public class MainGuiController implements Initializable {
     private CheckBox surnameIdentity;
 
     @FXML
+    private Button addButton;
+
+    @FXML
+    private Button deleteButton;
+
+    @FXML
+    private Button searchButton;
+
+    @FXML
+    private Button sortButton;
+
+    @FXML
+    private Button showButton;
+
+    @FXML
+    private Button allPriceButton;
+
+    @FXML
     private void closeButtonAction() {
         Platform.exit();
     }
@@ -132,7 +150,7 @@ public class MainGuiController implements Initializable {
             surnameField.setText("");
             costField.setText("");
             paidField.setText("");
-            datePicker.setPromptText("yyyy-MM-dd");
+            datePicker.setValue(null);
 
         } catch (IllegalArgumentException e) {
             alerts.addDataErrorAlert();
@@ -187,7 +205,7 @@ public class MainGuiController implements Initializable {
 
             setVisibleTrue();
 
-        } catch (NullPointerException e) {
+        } catch (NoSuchElementException | NumberFormatException e) {
             alerts.deleteErrorAlert();
         }
     }
@@ -198,6 +216,7 @@ public class MainGuiController implements Initializable {
         tabPane.getSelectionModel().selectedItemProperty().addListener((ov, oldTab, newTab) -> {
             if (oldTab.getId().equals(debtorsTab.getId())) {
                 table.setItems(data);
+                setVisibleFalse();
             }
         });
 
@@ -206,6 +225,15 @@ public class MainGuiController implements Initializable {
 
         mainPane.heightProperty().addListener((obs, oldVal, newVal) ->
                 borderPane.setPrefHeight(newVal.doubleValue()));
+
+
+        addButton.defaultButtonProperty().bind(addButton.focusedProperty());
+        deleteButton.defaultButtonProperty().bind(deleteButton.focusedProperty());
+        searchButton.defaultButtonProperty().bind(searchButton.focusedProperty());
+        editButton.defaultButtonProperty().bind(editButton.focusedProperty());
+        sortButton.defaultButtonProperty().bind(sortButton.focusedProperty());
+        allPriceButton.defaultButtonProperty().bind(allPriceButton.focusedProperty());
+        showButton.defaultButtonProperty().bind(showButton.focusedProperty());
 
 
         table.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -271,22 +299,25 @@ public class MainGuiController implements Initializable {
 
     private Customer addCustomerPrepare() {
         Customer customer;
+        if (nameField.getText() == null || surnameField.getText() == null ||
+                costField.getText() == null || paidField.getText() == null)
+            throw new NullPointerException();
 
-        if (tabPane.getSelectionModel().getSelectedIndex() == 0) {
-            customer = new Customer(nameField.getText(), surnameField.getText(),
-                    datePicker.getValue().toString(), Double.parseDouble(costField.getText()),
-                    Double.parseDouble(paidField.getText()));
-        } else {
-            customer = customerService.find(Long.parseLong(editSearchField.getText()));
+            if (tabPane.getSelectionModel().getSelectedIndex() == 0) {
+                customer = new Customer(nameField.getText(), surnameField.getText(),
+                        datePicker.getValue().toString(), Double.parseDouble(costField.getText()),
+                        Double.parseDouble(paidField.getText()));
+            } else {
+                customer = customerService.find(Long.parseLong(editSearchField.getText()));
 
-            customer.setName(editNameField.getText());
-            customer.setSurname(editSurnameField.getText());
-            customer.setOrderDate(editDatePicker.getValue().toString());
-            customer.setCost(Double.parseDouble(editCostField.getText()));
-            customer.setPaid(Double.parseDouble(editPaidField.getText()));
-            data.removeIf(customer1 -> customer1.getId() == Long.parseLong(editSearchField.getText()));
-            setVisibleFalse();
-        }
+                customer.setName(editNameField.getText());
+                customer.setSurname(editSurnameField.getText());
+                customer.setOrderDate(editDatePicker.getValue().toString());
+                customer.setCost(Double.parseDouble(editCostField.getText()));
+                customer.setPaid(Double.parseDouble(editPaidField.getText()));
+                data.removeIf(customer1 -> customer1.getId() == Long.parseLong(editSearchField.getText()));
+                setVisibleFalse();
+            }
 
         return customer;
     }

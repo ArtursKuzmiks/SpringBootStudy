@@ -33,11 +33,11 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void addCustomer(Customer customer) {
         Date data;
+        SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
 
         try {
-            data = new SimpleDateFormat("yyyy-MM-dd").parse(customer.getOrderDate());
-
-            if ((data != null ? data.compareTo(new Date()) : 0) < 0) {
+            data = sim.parse(customer.getOrderDate());
+            if ((data != null ? data.compareTo(sim.parse(sim.format(new Date()))) : 0) < 0) {
                 throw new IllegalArgumentException();
             }
 
